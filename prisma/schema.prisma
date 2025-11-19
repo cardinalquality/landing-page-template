@@ -1,0 +1,159 @@
+// Prisma Schema for Multi-Tenant E-Commerce Platform
+// Database: Supabase (PostgreSQL)
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ============================================
+// Multi-Tenant Models
+// ============================================
+
+model Tenant {
+  id        String   @id @default(cuid())
+  slug      String   @unique // e.g., 'reluma', 'eonlife'
+  name      String   // e.g., 'Reluma', 'Eonlife'
+  domain    String   @unique // e.g., 'reluma.com'
+
+  // Theme configuration (JSON)
+  theme     Json     // { primaryColor, secondaryColor, logo, etc. }
+
+  // Feature flags (JSON)
+  features  Json     // { ecommerce: true, blog: true, etc. }
+
+  // Stripe configuration
+  stripeAccountId String? @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  products  Product[]
+  orders    Order[]
+
+  @@index([slug])
+}
+
+// ============================================
+// E-Commerce Models
+// ============================================
+
+model Product {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  name        String
+  slug        String
+  description String?  @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  compareAtPrice Decimal? @db.Decimal(10, 2) // For showing discounts
+
+  // Images
+  imageUrl    String?
+  images      Json?    // Array of image URLs
+
+  // Inventory
+  sku         String?
+  inventory   Int      @default(0)
+  trackInventory Boolean @default(true)
+
+  // Status
+  active      Boolean  @default(true)
+  featured    Boolean  @default(false)
+
+  // Metadata
+  metadata    Json?    // Flexible JSON for custom fields
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  orderItems  OrderItem[]
+
+  @@unique([tenantId, slug])
+  @@index([tenantId])
+  @@index([tenantId, active])
+  @@index([tenantId, featured])
+}
+
+model Order {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  // Order details
+  orderNumber String   @unique
+  status      OrderStatus @default(PENDING)
+
+  // Customer info
+  customerEmail String
+  customerName  String?
+
+  // Pricing
+  subtotal    Decimal  @db.Decimal(10, 2)
+  tax         Decimal  @db.Decimal(10, 2) @default(0)
+  shipping    Decimal  @db.Decimal(10, 2) @default(0)
+  total       Decimal  @db.Decimal(10, 2)
+
+  // Payment
+  stripePaymentIntentId String? @unique
+  paidAt      DateTime?
+
+  // Shipping
+  shippingAddress Json?
+  billingAddress  Json?
+
+  // Metadata
+  metadata    Json?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  items       OrderItem[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([customerEmail])
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+
+  // Snapshot of product at time of order
+  name        String
+  price       Decimal  @db.Decimal(10, 2)
+  quantity    Int
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+// ============================================
+// Enums
+// ============================================
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
