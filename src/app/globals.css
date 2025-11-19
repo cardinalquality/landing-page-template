@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default tenant colors (Reluma) */
+  --color-primary: #2563eb;
+  --color-secondary: #475569;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode support (future enhancement) */
+  }
+}
