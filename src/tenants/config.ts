@@ -44,25 +44,25 @@ export const TENANTS: Record<TenantSlug, TenantConfig> = {
     name: 'Eonlife',
     domain: 'eonlife.com',
     theme: {
-      primaryColor: '#059669', // Emerald-600
-      secondaryColor: '#64748b', // Slate-500
-      accentColor: '#ec4899', // Pink-500
-      backgroundColor: '#fafaf9', // Stone-50
-      textColor: '#0f172a', // Slate-950
-      logo: '/logos/eonlife-logo.svg',
+      primaryColor: '#8B7355', // Warm brown/beige from Reluma branding
+      secondaryColor: '#F5F1ED', // Light cream background
+      accentColor: '#D4A574', // Gold accent
+      backgroundColor: '#FFFFFF',
+      textColor: '#2C2C2C',
+      logo: '/assets/eonlife/desktop/Navagation/ReLuma_Logo.png',
       favicon: '/favicons/eonlife-favicon.ico',
     },
     features: {
       ecommerce: true,
-      blog: true,
-      multiLanguage: true,
+      blog: false,
+      multiLanguage: false,
       stripe: true,
       analytics: true,
     },
     seo: {
-      title: 'Eonlife - Health & Wellness Products',
-      description: 'Transform your life with Eonlife health and wellness solutions.',
-      keywords: ['health', 'wellness', 'eonlife', 'longevity', 'supplements'],
+      title: 'Eonlife - ReLuma Skincare | 387 Human Growth Factors',
+      description: 'Discover radiant, youthful skin with ReLuma. Powered by 387 Human Growth Factors for comprehensive skin rejuvenation.',
+      keywords: ['skincare', 'anti-aging', 'growth factors', 'skin rejuvenation', 'ReLuma', 'eonlife'],
       ogImage: '/og-images/eonlife-og.jpg',
     },
     stripeAccountId: process.env.EONLIFE_STRIPE_ACCOUNT_ID,
@@ -77,9 +77,9 @@ export function getTenantConfig(slug: string): TenantConfig | undefined {
 }
 
 /**
- * Get default tenant (from environment or fallback to 'reluma')
+ * Get default tenant (from environment or fallback to 'eonlife')
  */
 export function getDefaultTenant(): TenantConfig {
-  const defaultSlug = (process.env.NEXT_PUBLIC_DEFAULT_TENANT || 'reluma') as TenantSlug
+  const defaultSlug = (process.env.NEXT_PUBLIC_DEFAULT_TENANT || 'eonlife') as TenantSlug
   return TENANTS[defaultSlug]
 }
