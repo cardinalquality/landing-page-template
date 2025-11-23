@@ -1,11 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  /* Default tenant colors (Reluma) */
-  --color-primary: #2563eb;
-  --color-secondary: #475569;
+  /* Default tenant colors (Eonlife) */
+  --color-primary: #8B7355;
+  --color-secondary: #F5F1ED;
 }
 
 @media (prefers-color-scheme: dark) {
