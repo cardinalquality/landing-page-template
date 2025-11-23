@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/core/components/atoms'
 import Image from 'next/image'
 
 export interface HeroProps {
@@ -28,10 +27,10 @@ export function Hero({
   onCtaClick,
 }: HeroProps) {
   return (
-    <section className="relative min-h-[600px] md:min-h-[700px] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen pt-16 flex items-center overflow-hidden">
       {/* Background Image */}
       {backgroundImage && (
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 -z-10">
           <Image
             src={backgroundImage}
             alt="Hero background"
@@ -40,12 +39,12 @@ export function Hero({
             priority
             quality={90}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
         </div>
       )}
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left: Text Content */}
           <div className="text-white space-y-6">
@@ -55,15 +54,21 @@ export function Hero({
             <p className="text-xl md:text-2xl text-white/90">
               {subheadline}
             </p>
-            <div className="pt-4">
-              <Button
-                variant="primary"
-                size="lg"
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <button
                 onClick={onCtaClick}
-                className="bg-[#D4A574] hover:bg-[#C69564] text-white font-semibold px-8 py-4 text-lg shadow-xl"
+                className="px-8 py-4 bg-[#D4A574] hover:bg-[#C69564] text-white rounded-full transition-all font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 {ctaText}
-              </Button>
+              </button>
+              <button
+                onClick={() => {
+                  document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full hover:bg-white/20 transition-all font-semibold text-lg border border-white/30"
+              >
+                Learn More
+              </button>
             </div>
           </div>
 

@@ -23,23 +23,29 @@ export default function TenantHomePage() {
       />
 
       {/* About Section - Uses Tenant Content */}
-      <section className="py-20" style={{ backgroundColor: tenant.theme.secondaryColor }}>
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6" style={{ color: tenant.theme.primaryColor }}>
-            {tenant.content.about.title}
-          </h2>
-          <p className="text-lg max-w-3xl mx-auto" style={{ color: tenant.theme.textColor }}>
+      <section id="about" className="py-20" style={{ backgroundColor: tenant.theme.secondaryColor }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: tenant.theme.primaryColor }}>
+              {tenant.content.about.title}
+            </h2>
+            <div className="w-24 h-1 mx-auto" style={{ backgroundColor: tenant.theme.primaryColor }}></div>
+          </div>
+          <p className="text-lg md:text-xl text-center max-w-4xl mx-auto leading-relaxed" style={{ color: tenant.theme.textColor }}>
             {tenant.content.about.description}
           </p>
         </div>
       </section>
 
       {/* Products Section - Uses Tenant Products */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center" style={{ color: tenant.theme.primaryColor }}>
-            Shop Our Collection
-          </h2>
+      <section id="products" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: tenant.theme.primaryColor }}>
+              Shop Our Collection
+            </h2>
+            <div className="w-24 h-1 mx-auto" style={{ backgroundColor: tenant.theme.primaryColor }}></div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {tenant.content.products.map((product) => (
               <ProductCard
