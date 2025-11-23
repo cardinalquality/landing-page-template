@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
         hostname: '**.supabase.co',
       },
     ],
+    qualities: [75, 90], // Add support for quality 90
   },
 }
 
