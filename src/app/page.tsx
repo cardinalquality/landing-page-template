@@ -3,14 +3,24 @@
 import { Hero } from '@/core/components/sections'
 import { ProductCard } from '@/core/components/molecules'
 import { getTenantConfig } from '@/tenants/config'
+import { useCartStore } from '@/core/stores/cart'
 
 export default function HomePage() {
   // Eonlife is the store, ReLuma is the product
   const tenant = getTenantConfig('eonlife')!
+  const addItem = useCartStore((state) => state.addItem)
 
   const handleAddToCart = (productId: string) => {
-    console.log('Add to cart:', productId)
-    // Will connect to cart state and Shopify API later
+    const product = tenant.content.products.find((p) => p.id === productId)
+    if (product) {
+      // Convert tenant product to full Product type and add to cart
+      addItem({
+        ...product,
+        description: '',
+        images: product.image ? [product.image] : [],
+        inStock: product.inStock ?? true,
+      })
+    }
   }
 
   return (

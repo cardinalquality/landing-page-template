@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Header } from '@/core/components/organisms'
 
 export const metadata: Metadata = {
-  title: 'Universal E-Commerce Platform',
-  description: 'Multi-tenant e-commerce platform built with Next.js 16',
+  title: 'Eonlife - ReLuma Skincare | 387 Human Growth Factors',
+  description: 'Discover radiant, youthful skin with ReLuma. Powered by 387 Human Growth Factors for comprehensive skin rejuvenation.',
 }
 
 export default function RootLayout({
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Header />
+        <div className="pt-20">{children}</div>
+      </body>
     </html>
   )
 }
