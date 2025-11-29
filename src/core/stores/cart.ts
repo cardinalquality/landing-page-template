@@ -11,12 +11,16 @@ import type { Product, CartItem } from '../services/types'
 
 interface CartState {
   items: CartItem[]
+  isOpen: boolean
 
   // Actions
   addItem: (product: Product, quantity?: number) => void
   updateQuantity: (itemId: string, quantity: number) => void
   removeItem: (itemId: string) => void
   clearCart: () => void
+  toggleCart: () => void
+  openCart: () => void
+  closeCart: () => void
 
   // Computed values
   itemCount: number
@@ -30,6 +34,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, _get) => ({
       items: [],
+      isOpen: false,
       itemCount: 0,
       subtotal: 0,
       tax: 0,
@@ -112,6 +117,18 @@ export const useCartStore = create<CartState>()(
           shipping: 0,
           total: 0,
         })
+      },
+
+      toggleCart: () => {
+        set((state) => ({ isOpen: !state.isOpen }))
+      },
+
+      openCart: () => {
+        set({ isOpen: true })
+      },
+
+      closeCart: () => {
+        set({ isOpen: false })
       },
     }),
     {

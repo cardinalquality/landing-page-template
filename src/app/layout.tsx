@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Header } from '@/core/components/organisms'
+import { Header, CartSidebar } from '@/core/components/organisms'
 
 export const metadata: Metadata = {
   title: 'Eonlife - ReLuma Skincare | 387 Human Growth Factors',
@@ -16,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <Header />
+        <CartSidebar />
         <div className="pt-20">{children}</div>
       </body>
     </html>

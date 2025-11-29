@@ -8,6 +8,7 @@ import { getTenantConfig } from '@/tenants/config'
 export function Header() {
   const tenant = getTenantConfig('eonlife')!
   const itemCount = useCartStore((state) => state.itemCount)
+  const toggleCart = useCartStore((state) => state.toggleCart)
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
@@ -44,10 +45,7 @@ export function Header() {
 
           {/* Cart Icon */}
           <button
-            onClick={() => {
-              // Will open cart sidebar
-              console.log('Open cart')
-            }}
+            onClick={toggleCart}
             className="relative p-2 text-gray-700 hover:text-[#8B7355] transition-colors"
           >
             {/* Shopping Cart SVG Icon */}
