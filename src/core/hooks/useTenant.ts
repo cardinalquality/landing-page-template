@@ -24,7 +24,7 @@ export function useTenant(): TenantConfig {
   const tenantSlug = segments[0]
 
   // Get tenant config or fall back to default
-  const tenant = getTenantConfig(tenantSlug) || getDefaultTenant()
+  const tenant = tenantSlug ? getTenantConfig(tenantSlug) || getDefaultTenant() : getDefaultTenant()
 
   return tenant
 }

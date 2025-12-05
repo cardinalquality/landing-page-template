@@ -1,4 +1,23 @@
-import { TenantConfig, TenantSlug } from './schema'
+import { TenantConfig, TenantSlug, TenantShopifyConfig } from './schema'
+
+/**
+ * Helper to get Shopify config from environment variables
+ * Each tenant can have its own Shopify store
+ */
+function getShopifyConfig(tenantSlug: string): TenantShopifyConfig | undefined {
+  const storeDomain = process.env[`SHOPIFY_${tenantSlug.toUpperCase()}_STORE_DOMAIN`]
+  const accessToken = process.env[`SHOPIFY_${tenantSlug.toUpperCase()}_STOREFRONT_ACCESS_TOKEN`]
+
+  if (!storeDomain || !accessToken) {
+    return undefined
+  }
+
+  return {
+    storeDomain,
+    storefrontAccessToken: accessToken,
+    apiVersion: '2025-01', // Latest stable version
+  }
+}
 
 /**
  * Multi-Tenant Configurations
@@ -22,6 +41,52 @@ export const TENANTS: Record<TenantSlug, TenantConfig> = {
       logo: '/logos/reluma-logo.svg',
       favicon: '/favicons/reluma-favicon.ico',
     },
+    content: {
+      hero: {
+        headline: 'Premium Products, Exceptional Results',
+        subheadline: 'Elevate Your Lifestyle with Reluma',
+        ctaText: 'Explore Products',
+        backgroundImage: '/assets/eonlife/desktop/Section_1_assets/Section_1_1920x900.png',
+        productImage: '/assets/eonlife/desktop/Section_1_assets/Small_Bottle.png',
+      },
+      about: {
+        title: 'Why Choose Reluma?',
+        description: 'Reluma offers premium quality products backed by science and innovation. Experience the difference that excellence makes.',
+      },
+      products: [
+        {
+          id: 'reluma-essential-kit',
+          name: 'Essential Wellness Kit',
+          price: 199.99,
+          compareAtPrice: 249.99,
+          image: '/assets/eonlife/desktop/Section_3_assets/Small_Bottle.png',
+          rating: 4.7,
+          reviewCount: 156,
+          badge: 'bestseller',
+          inStock: true,
+        },
+        {
+          id: 'reluma-premium-supplement',
+          name: 'Premium Daily Supplement',
+          price: 79.99,
+          image: '/assets/eonlife/desktop/Section_5_assets/Section_5_Small_Bottle.png',
+          rating: 4.5,
+          reviewCount: 98,
+          inStock: true,
+        },
+        {
+          id: 'reluma-advanced-formula',
+          name: 'Advanced Recovery Formula',
+          price: 159.99,
+          compareAtPrice: 189.99,
+          image: '/assets/eonlife/desktop/Section_10_assets/Small_Bottle.png',
+          rating: 4.8,
+          reviewCount: 203,
+          badge: 'new',
+          inStock: true,
+        },
+      ],
+    },
     features: {
       ecommerce: true,
       blog: true,
@@ -36,6 +101,7 @@ export const TENANTS: Record<TenantSlug, TenantConfig> = {
       ogImage: '/og-images/reluma-og.jpg',
     },
     stripeAccountId: process.env.RELUMA_STRIPE_ACCOUNT_ID,
+    shopify: getShopifyConfig('reluma'),
   },
 
   eonlife: {
@@ -52,6 +118,53 @@ export const TENANTS: Record<TenantSlug, TenantConfig> = {
       logo: '/assets/eonlife/desktop/Navagation/ReLuma_Logo.png',
       favicon: '/favicons/eonlife-favicon.ico',
     },
+    content: {
+      hero: {
+        headline: 'Discover Radiant, Youthful Skin',
+        subheadline: 'Powered by 387 Human Growth Factors',
+        ctaText: 'Shop Now',
+        backgroundImage: '/assets/eonlife/desktop/Section_1_assets/Section_1_1920x900.png',
+        productImage: '/assets/eonlife/desktop/Section_1_assets/Small_Bottle.png',
+      },
+      about: {
+        title: 'What is ReLuma?',
+        description: 'ReLuma harnesses 387 human growth factors derived from ethically sourced stem cells to reduce wrinkles, tighten skin, and restore your natural luminosity.',
+      },
+      products: [
+        {
+          id: 'eonlife-reluma-serum',
+          name: 'ReLuma Renewal Serum',
+          price: 129.99,
+          compareAtPrice: 179.99,
+          image: '/assets/eonlife/desktop/Section_3_assets/Small_Bottle.png',
+          rating: 4.8,
+          reviewCount: 234,
+          badge: 'bestseller',
+          inStock: true,
+        },
+        {
+          id: 'eonlife-reluma-moisturizer',
+          name: 'ReLuma Daily Moisturizer',
+          price: 89.99,
+          compareAtPrice: 119.99,
+          image: '/assets/eonlife/desktop/Section_5_assets/Section_5_Small_Bottle.png',
+          rating: 4.6,
+          reviewCount: 187,
+          badge: 'sale',
+          inStock: true,
+        },
+        {
+          id: 'eonlife-reluma-night',
+          name: 'ReLuma Night Repair',
+          price: 149.99,
+          image: '/assets/eonlife/desktop/Section_10_assets/Small_Bottle.png',
+          rating: 4.9,
+          reviewCount: 312,
+          badge: 'new',
+          inStock: true,
+        },
+      ],
+    },
     features: {
       ecommerce: true,
       blog: false,
@@ -66,6 +179,7 @@ export const TENANTS: Record<TenantSlug, TenantConfig> = {
       ogImage: '/og-images/eonlife-og.jpg',
     },
     stripeAccountId: process.env.EONLIFE_STRIPE_ACCOUNT_ID,
+    shopify: getShopifyConfig('eonlife'),
   },
 }
 
