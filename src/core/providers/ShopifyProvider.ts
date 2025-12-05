@@ -139,6 +139,16 @@ function transformProduct(shopifyProduct: ShopifyProduct): Product {
     ? parseFloat(shopifyProduct.compareAtPriceRange.minVariantPrice.amount)
     : undefined
 
+  // Build images array with sensible fallbacks and deduplication
+  const featured = shopifyProduct.featuredImage?.url
+  const productImages = shopifyProduct.images?.edges?.map((edge) => edge.node.url).filter(Boolean) || []
+  const variantImages =
+    shopifyProduct.variants?.edges
+      ?.map((edge) => edge.node?.image?.url)
+      .filter(Boolean) || []
+
+  const images = Array.from(new Set([featured, ...productImages, ...variantImages].filter(Boolean)))
+
   // Determine badge based on tags or price comparison
   let badge: Product['badge'] = undefined
   if (shopifyProduct.tags?.includes('bestseller')) badge = 'bestseller'
@@ -151,7 +161,7 @@ function transformProduct(shopifyProduct: ShopifyProduct): Product {
     description: shopifyProduct.description,
     price,
     compareAtPrice: compareAtPrice && compareAtPrice > price ? compareAtPrice : undefined,
-    images: shopifyProduct.images.edges.map((edge) => edge.node.url),
+    images,
     inStock: shopifyProduct.availableForSale,
     lowStock: shopifyProduct.totalInventory !== null && shopifyProduct.totalInventory < 10,
     badge,
@@ -303,6 +313,9 @@ interface ShopifyProduct {
       node: {
         id: string
         title: string
+        image?: {
+          url: string
+        }
         price: {
           amount: string
           currencyCode: string

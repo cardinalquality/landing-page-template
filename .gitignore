@@ -43,3 +43,9 @@ prisma/migrations/*_migration/
 # Misc
 *.tsbuildinfo
 next-env.d.ts
+
+# Design Assets (Too large for git)
+*.psd
+*.xd
+*.ai
+*.zip

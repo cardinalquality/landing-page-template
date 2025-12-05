@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Header, CartSidebar } from '@/core/components/organisms'
 
 export const metadata: Metadata = {
-  title: 'Eonlife - ReLuma Skincare | 387 Human Growth Factors',
-  description: 'Discover radiant, youthful skin with ReLuma. Powered by 387 Human Growth Factors for comprehensive skin rejuvenation.',
+  title: 'EonLife | ReLuma Anti-Aging Serum with 387 Growth Factors',
+  description: 'Defy aging with ReLuma - the revolutionary bio-tech skin serum featuring 387 human growth factors. Exclusive distributor: EonLife Global.',
 }
 
 export default function RootLayout({
@@ -13,11 +12,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className="antialiased">
-        <Header />
-        <CartSidebar />
-        <div className="pt-20">{children}</div>
+        {children}
       </body>
     </html>
   )
