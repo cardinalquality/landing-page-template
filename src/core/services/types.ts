@@ -33,7 +33,7 @@ export interface CartItem {
   id: string
   product: Product
   quantity: number
-  variantId?: string
+  variantId?: string // Shopify variant ID for checkout
 }
 
 export interface Cart {

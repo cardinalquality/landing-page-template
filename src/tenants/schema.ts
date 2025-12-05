@@ -58,6 +58,16 @@ export interface TenantContent {
   products: TenantProduct[]
 }
 
+/**
+ * Shopify store configuration per tenant
+ * Each tenant can have its own Shopify store
+ */
+export interface TenantShopifyConfig {
+  storeDomain: string // e.g., "your-store.myshopify.com"
+  storefrontAccessToken: string
+  apiVersion?: string // defaults to latest stable
+}
+
 export interface TenantConfig {
   id: string
   slug: string
@@ -67,7 +77,9 @@ export interface TenantConfig {
   content: TenantContent
   features: TenantFeatures
   seo: TenantSEO
+  // Payment/Commerce providers (per-tenant)
   stripeAccountId?: string
+  shopify?: TenantShopifyConfig
 }
 
 export type TenantSlug = 'reluma' | 'eonlife'

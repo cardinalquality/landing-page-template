@@ -1,4 +1,23 @@
-import { TenantConfig, TenantSlug } from './schema'
+import { TenantConfig, TenantSlug, TenantShopifyConfig } from './schema'
+
+/**
+ * Helper to get Shopify config from environment variables
+ * Each tenant can have its own Shopify store
+ */
+function getShopifyConfig(tenantSlug: string): TenantShopifyConfig | undefined {
+  const storeDomain = process.env[`SHOPIFY_${tenantSlug.toUpperCase()}_STORE_DOMAIN`]
+  const accessToken = process.env[`SHOPIFY_${tenantSlug.toUpperCase()}_STOREFRONT_ACCESS_TOKEN`]
+
+  if (!storeDomain || !accessToken) {
+    return undefined
+  }
+
+  return {
+    storeDomain,
+    storefrontAccessToken: accessToken,
+    apiVersion: '2025-01', // Latest stable version
+  }
+}
 
 /**
  * Multi-Tenant Configurations
@@ -82,6 +101,7 @@ export const TENANTS: Record<TenantSlug, TenantConfig> = {
       ogImage: '/og-images/reluma-og.jpg',
     },
     stripeAccountId: process.env.RELUMA_STRIPE_ACCOUNT_ID,
+    shopify: getShopifyConfig('reluma'),
   },
 
   eonlife: {
@@ -159,6 +179,7 @@ export const TENANTS: Record<TenantSlug, TenantConfig> = {
       ogImage: '/og-images/eonlife-og.jpg',
     },
     stripeAccountId: process.env.EONLIFE_STRIPE_ACCOUNT_ID,
+    shopify: getShopifyConfig('eonlife'),
   },
 }
 

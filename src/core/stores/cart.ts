@@ -14,7 +14,7 @@ interface CartState {
   isOpen: boolean
 
   // Actions
-  addItem: (product: Product, quantity?: number) => void
+  addItem: (product: Product, quantity?: number, variantId?: string) => void
   updateQuantity: (itemId: string, quantity: number) => void
   removeItem: (itemId: string) => void
   clearCart: () => void
@@ -41,11 +41,14 @@ export const useCartStore = create<CartState>()(
       shipping: 0,
       total: 0,
 
-      addItem: (product, quantity = 1) => {
+      addItem: (product, quantity = 1, variantId?: string) => {
         set((state) => {
+          // Use the first variant ID if not provided
+          const effectiveVariantId = variantId || product.variants?.[0]?.id
+          
           // Check if product already in cart
           const existingItemIndex = state.items.findIndex(
-            (item) => item.product.id === product.id
+            (item) => item.product.id === product.id && item.variantId === effectiveVariantId
           )
 
           let newItems: CartItem[]
@@ -65,6 +68,7 @@ export const useCartStore = create<CartState>()(
                 id: `cart-item-${Date.now()}`,
                 product,
                 quantity,
+                variantId: effectiveVariantId,
               },
             ]
           }
@@ -134,6 +138,17 @@ export const useCartStore = create<CartState>()(
     {
       name: 'eonlife-cart-storage',
       partialize: (state) => ({ items: state.items }), // Only persist items
+      onRehydrateStorage: () => (state) => {
+        // Recalculate totals after rehydration
+        if (state && state.items.length > 0) {
+          const totals = calculateTotals(state.items)
+          state.itemCount = totals.itemCount
+          state.subtotal = totals.subtotal
+          state.tax = totals.tax
+          state.shipping = totals.shipping
+          state.total = totals.total
+        }
+      },
     }
   )
 )
