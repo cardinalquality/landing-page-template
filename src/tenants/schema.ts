@@ -13,6 +13,9 @@ export interface TenantTheme {
   textColor: string
   logo: string
   favicon: string
+  gradientStart?: string
+  gradientEnd?: string
+  heroOverlay?: string
 }
 
 export interface TenantFeatures {
@@ -33,12 +36,14 @@ export interface TenantSEO {
 export interface TenantProduct {
   id: string
   name: string
+  subtitle?: string
+  description?: string
   price: number
   compareAtPrice?: number
   image?: string
   rating?: number
   reviewCount?: number
-  badge?: 'sale' | 'new' | 'bestseller'
+  badge?: 'sale' | 'new' | 'bestseller' | 'travel'
   inStock?: boolean
   lowStock?: boolean
 }
@@ -48,13 +53,34 @@ export interface TenantContent {
     headline: string
     subheadline: string
     ctaText: string
+    ctaSecondary?: string
     backgroundImage: string
     productImage: string
+    stats?: { value: string; label: string }[]
   }
   about: {
     title: string
     description: string
+    eonlifeInfo?: string
+    features?: string[]
   }
+  science?: {
+    title: string
+    description: string
+    keyFact?: string
+  }
+  beforeAfter?: {
+    name: string
+    before: string
+    after: string
+    testimonial: string
+  }[]
+  testimonials?: {
+    name: string
+    location: string
+    text: string
+    rating: number
+  }[]
   products: TenantProduct[]
 }
 

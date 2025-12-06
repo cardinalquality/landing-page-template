@@ -3,11 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   /* Config Options */
   reactStrictMode: true,
-
-  /* Experimental Features */
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
 
   /* Image Optimization */
   images: {

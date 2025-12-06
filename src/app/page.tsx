@@ -70,7 +70,6 @@ export default function HomePage() {
   }
 
   const content = tenant.content as any
-  const theme = tenant.theme as any
 
   return (
     <>

@@ -141,13 +141,13 @@ function transformProduct(shopifyProduct: ShopifyProduct): Product {
 
   // Build images array with sensible fallbacks and deduplication
   const featured = shopifyProduct.featuredImage?.url
-  const productImages = shopifyProduct.images?.edges?.map((edge) => edge.node.url).filter(Boolean) || []
+  const productImages = shopifyProduct.images?.edges?.map((edge) => edge.node.url).filter((url): url is string => !!url) || []
   const variantImages =
     shopifyProduct.variants?.edges
       ?.map((edge) => edge.node?.image?.url)
-      .filter(Boolean) || []
+      .filter((url): url is string => !!url) || []
 
-  const images = Array.from(new Set([featured, ...productImages, ...variantImages].filter(Boolean)))
+  const images = Array.from(new Set([featured, ...productImages, ...variantImages].filter((url): url is string => !!url)))
 
   // Determine badge based on tags or price comparison
   let badge: Product['badge'] = undefined
