@@ -15,7 +15,7 @@ export interface Product {
   images: string[]
   rating?: number
   reviewCount?: number
-  badge?: 'sale' | 'new' | 'bestseller'
+  badge?: 'sale' | 'new' | 'bestseller' | 'travel'
   inStock: boolean
   lowStock?: boolean
   variants?: ProductVariant[]

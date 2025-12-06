@@ -9,7 +9,7 @@
 
 import { createStorefrontApiClient, StorefrontApiClient } from '@shopify/storefront-api-client'
 import type { TenantShopifyConfig } from '@/tenants/schema'
-import type { Cart, CartItem, Product } from '../services/types'
+import type { Cart, CartItem } from '../services/types'
 
 /**
  * GraphQL Mutations for Cart operations
