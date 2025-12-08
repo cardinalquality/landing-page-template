@@ -6,7 +6,15 @@
       "Bash(jq:*)",
       "Bash(chmod:*)",
       "Bash(npm test:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run lint:*)",
+      "Bash(git push:*)",
+      "Bash(npx next lint:*)",
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(npm audit:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
