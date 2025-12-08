@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { CookieConsent } from '@/core/components/organisms/CookieConsent/CookieConsent'
+import { CookieConsentWrapper } from '@/core/components/organisms/CookieConsent/CookieConsentWrapper'
 
 export const metadata: Metadata = {
   title: 'EonLife | ReLuma Anti-Aging Serum with 387 Growth Factors',
@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
         {children}
-        <CookieConsent />
+        <CookieConsentWrapper />
       </body>
     </html>
   )
