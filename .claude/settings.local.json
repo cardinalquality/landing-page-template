@@ -14,7 +14,13 @@
       "Bash(cat:*)",
       "Bash(npm install:*)",
       "Bash(npm audit:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run test:*)",
+      "Bash(grep:*)",
+      "Bash(npm update:*)",
+      "Bash(TURBOPACK=0 npm run build:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []

@@ -11,17 +11,25 @@ import { getTenantConfig } from '@/tenants/config'
  * Displays on first visit and stores user preference in localStorage.
  */
 export function CookieConsent() {
-  const tenant = getTenantConfig('eonlife')!
   const [showBanner, setShowBanner] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    // Mark component as mounted (client-side only)
+    setIsMounted(true)
+
     // Check if user has already consented
     const consent = localStorage.getItem('cookie-consent')
     if (!consent) {
       setShowBanner(true)
     }
   }, [])
+
+  // Don't render anything during SSR
+  if (!isMounted) return null
+
+  const tenant = getTenantConfig('eonlife')!
 
   const acceptAll = () => {
     localStorage.setItem('cookie-consent', JSON.stringify({
