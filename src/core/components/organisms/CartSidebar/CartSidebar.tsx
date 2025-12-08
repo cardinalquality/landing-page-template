@@ -24,36 +24,72 @@ export function CartSidebar() {
     setCheckoutError(null)
 
     try {
-      // Add each item to Shopify cart
-      // We need the variant ID - for products with single variant, use the first one
-      let checkoutUrl: string | null = null
-
-      for (const item of items) {
-        // Get the variant ID - if not stored, we need to fetch the product
-        // For now, we'll use a workaround: the product ID from Shopify includes the variant
+      // Validate all items have variant IDs before proceeding
+      const itemsWithVariants = items.map(item => {
         const variantId = item.variantId || item.product.variants?.[0]?.id
-
         if (!variantId) {
-          console.warn(`No variant ID for product ${item.product.name}, skipping...`)
-          continue
+          console.warn(`No variant ID for product ${item.product.name}`)
+          return null
         }
+        return { variantId, quantity: item.quantity }
+      }).filter((item): item is { variantId: string; quantity: number } => item !== null)
 
-        const response = await fetch('/api/cart', {
+      if (itemsWithVariants.length === 0) {
+        throw new Error('No valid items to checkout')
+      }
+
+      // Add first item to create cart
+      const firstItem = itemsWithVariants[0]
+      if (!firstItem) {
+        throw new Error('No valid items to checkout')
+      }
+
+      let response = await fetch('/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          variantId: firstItem.variantId,
+          quantity: firstItem.quantity,
+          tenant: 'eonlife',
+        }),
+      })
+
+      let data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create cart')
+      }
+
+      let checkoutUrl = data.checkoutUrl
+      const cartId = data.cartId
+
+      // Add remaining items to the same cart
+      for (let i = 1; i < itemsWithVariants.length; i++) {
+        const item = itemsWithVariants[i]
+        if (!item) continue
+
+        response = await fetch('/api/cart', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': `shopify_cart_id=${cartId}`
+          },
           body: JSON.stringify({
-            variantId,
+            variantId: item.variantId,
             quantity: item.quantity,
             tenant: 'eonlife',
           }),
         })
 
-        const data = await response.json()
+        data = await response.json()
 
         if (!response.ok) {
-          throw new Error(data.error || 'Failed to add item to cart')
+          console.error(`Failed to add item ${i + 1}:`, data.error)
+          // Continue with other items even if one fails
+          continue
         }
 
+        // Update checkout URL with latest
         checkoutUrl = data.checkoutUrl
       }
 
@@ -64,7 +100,7 @@ export function CartSidebar() {
         // Redirect to Shopify checkout
         window.location.href = checkoutUrl
       } else {
-        throw new Error('No checkout URL received')
+        throw new Error('No checkout URL received from Shopify')
       }
     } catch (error) {
       console.error('Checkout error:', error)

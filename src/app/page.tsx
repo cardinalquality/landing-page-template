@@ -596,7 +596,26 @@ export default function HomePage() {
             </div>
 
             <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
-              © {new Date().getFullYear()} EonLife Global LLC. All rights reserved.
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+                <a href="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </a>
+                <span className="hidden sm:inline">•</span>
+                <a href="/terms" className="hover:text-white transition-colors">
+                  Terms of Service
+                </a>
+                <span className="hidden sm:inline">•</span>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem('cookie-consent')
+                    window.location.reload()
+                  }}
+                  className="hover:text-white transition-colors"
+                >
+                  Cookie Preferences
+                </button>
+              </div>
+              <p>© {new Date().getFullYear()} EonLife Global LLC. All rights reserved.</p>
             </div>
           </div>
         </footer>

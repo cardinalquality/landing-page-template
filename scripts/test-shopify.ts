@@ -17,7 +17,7 @@ async function testConnection() {
 
   const client = createStorefrontApiClient({
     storeDomain: STORE_DOMAIN,
-    apiVersion: '2024-01',
+    apiVersion: '2025-01',
     publicAccessToken: ACCESS_TOKEN,
   })
 
