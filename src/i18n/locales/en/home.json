@@ -1,0 +1,63 @@
+{
+  "stats": {
+    "value387": "387",
+    "value98": "98%",
+    "value4to6": "4-6"
+  },
+  "science": {
+    "heading": "The Science of Growth Factors",
+    "bigNumber": "387",
+    "bigNumberLabel": "Growth Factors Identified",
+    "bigNumberCompare": "vs. competitors with fewer than 9",
+    "cards": {
+      "tgfb": {
+        "title": "TGF-β Family",
+        "description": "Most important growth factor in skin. Potent stimulator of collagen production.",
+        "icon": "🧬"
+      },
+      "pdgf": {
+        "title": "PDGF",
+        "description": "Platelet-derived growth factor promotes matrix production and reduces inflammation.",
+        "icon": "💧"
+      },
+      "matrix": {
+        "title": "Matrix Proteins",
+        "description": "Essential proteins that support skin structure and promote cellular regeneration.",
+        "icon": "✨"
+      }
+    }
+  },
+  "story": {
+    "heading": "Why ReLuma Works",
+    "paragraph1": "ReLuma is the first bio-tech skin serum featuring multiple skin growth factors and matrix proteins, redefining skin care for the 21st century. Over 387 growth factors have been identified—far more than competing products. It rapidly diminishes the appearance of fine lines, helps repair damaged cells, and naturally calms inflammation for smoother, more even skin.",
+    "paragraph2": "Exclusive to EonLife Global: we partner directly with the researchers behind ReLuma to ensure authenticity and maximum efficacy. Used daily, ReLuma supports collagen production, boosts hydration, and restores luminosity—making it ideal post-procedure (lasers, peels, Retin-A), or as a premium daily anti-aging regimen.",
+    "paragraph3": "Trusted by medical estheticians with decades of experience, ReLuma has shown visible improvements in as little as 4–6 weeks for texture, tone, and fine lines."
+  },
+  "beforeAfter": {
+    "heading": "Real Results, Real People",
+    "before": "Before",
+    "after": "After"
+  },
+  "products": {
+    "heading": "Shop ReLuma",
+    "badges": {
+      "sale": "Sale",
+      "new": "New",
+      "bestseller": "Bestseller",
+      "travel": "Travel Size"
+    },
+    "inStock": "In Stock",
+    "lowStock": "Low Stock",
+    "outOfStock": "Out of Stock",
+    "reviewCount": "{count} reviews"
+  },
+  "testimonials": {
+    "heading": "What Our Customers Say"
+  },
+  "cta": {
+    "heading": "Ready to Transform Your Skin?",
+    "subheading": "Join thousands of satisfied customers experiencing real results",
+    "button": "Shop ReLuma Now"
+  },
+  "eonlifeInfo": "EonLife Global is the exclusive authorized distributor of ReLuma products. We partner directly with the scientists who developed this breakthrough formula."
+}

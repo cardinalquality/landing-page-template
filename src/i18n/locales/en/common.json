@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "products": "Products",
+    "science": "Science",
+    "results": "Results",
+    "reviews": "Reviews",
+    "about": "About"
+  },
+  "buttons": {
+    "shopNow": "Shop Now",
+    "learnMore": "Learn More",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "viewCart": "View Cart",
+    "checkout": "Checkout",
+    "continueShopping": "Continue Shopping"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "quantity": "Qty",
+    "remove": "Remove",
+    "itemsInCart": "{count} items in cart"
+  },
+  "hero": {
+    "scrollDown": "Scroll down"
+  },
+  "stats": {
+    "growthFactors": "Growth Factors",
+    "sawResults": "Saw Results",
+    "weeksToChange": "Weeks to Change"
+  }
+}

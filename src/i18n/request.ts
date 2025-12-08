@@ -12,7 +12,18 @@ export default getRequestConfig(async ({ locale }) => {
   // Validate that the incoming `locale` parameter is valid
   if (!locales.includes(locale as any)) notFound()
 
+  // Load all translation namespaces
+  const [common, home, footer] = await Promise.all([
+    import(`./locales/${locale}/common.json`),
+    import(`./locales/${locale}/home.json`),
+    import(`./locales/${locale}/footer.json`),
+  ])
+
   return {
-    messages: (await import(`./locales/${locale}/common.json`)).default,
+    messages: {
+      ...common.default,
+      ...home.default,
+      ...footer.default,
+    },
   }
 })

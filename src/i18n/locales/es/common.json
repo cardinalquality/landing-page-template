@@ -1,0 +1,34 @@
+{
+  "navigation": {
+    "products": "Productos",
+    "science": "Ciencia",
+    "results": "Resultados",
+    "reviews": "Reseñas",
+    "about": "Acerca de"
+  },
+  "buttons": {
+    "shopNow": "Comprar Ahora",
+    "learnMore": "Más Información",
+    "addToCart": "Agregar al Carrito",
+    "buyNow": "Comprar Ahora",
+    "viewCart": "Ver Carrito",
+    "checkout": "Finalizar Compra",
+    "continueShopping": "Continuar Comprando"
+  },
+  "cart": {
+    "title": "Carrito de Compras",
+    "empty": "Tu carrito está vacío",
+    "subtotal": "Subtotal",
+    "quantity": "Cant.",
+    "remove": "Eliminar",
+    "itemsInCart": "{count} artículos en el carrito"
+  },
+  "hero": {
+    "scrollDown": "Desplázate hacia abajo"
+  },
+  "stats": {
+    "growthFactors": "Factores de Crecimiento",
+    "sawResults": "Vieron Resultados",
+    "weeksToChange": "Semanas para Ver Cambios"
+  }
+}

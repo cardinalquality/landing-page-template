@@ -1,0 +1,63 @@
+{
+  "stats": {
+    "value387": "387",
+    "value98": "98%",
+    "value4to6": "4-6"
+  },
+  "science": {
+    "heading": "La Ciencia de los Factores de Crecimiento",
+    "bigNumber": "387",
+    "bigNumberLabel": "Factores de Crecimiento Identificados",
+    "bigNumberCompare": "vs. competidores con menos de 9",
+    "cards": {
+      "tgfb": {
+        "title": "Familia TGF-β",
+        "description": "El factor de crecimiento más importante en la piel. Potente estimulador de la producción de colágeno.",
+        "icon": "🧬"
+      },
+      "pdgf": {
+        "title": "PDGF",
+        "description": "El factor de crecimiento derivado de plaquetas promueve la producción de matriz y reduce la inflamación.",
+        "icon": "💧"
+      },
+      "matrix": {
+        "title": "Proteínas de Matriz",
+        "description": "Proteínas esenciales que sostienen la estructura de la piel y promueven la regeneración celular.",
+        "icon": "✨"
+      }
+    }
+  },
+  "story": {
+    "heading": "Por Qué Funciona ReLuma",
+    "paragraph1": "ReLuma es el primer suero biotecnológico para la piel que presenta múltiples factores de crecimiento y proteínas de matriz, redefiniendo el cuidado de la piel para el siglo XXI. Se han identificado más de 387 factores de crecimiento, mucho más que los productos de la competencia. Disminuye rápidamente la apariencia de líneas finas, ayuda a reparar células dañadas y calma naturalmente la inflamación para una piel más suave y uniforme.",
+    "paragraph2": "Exclusivo de EonLife Global: nos asociamos directamente con los investigadores detrás de ReLuma para garantizar autenticidad y máxima eficacia. Usado diariamente, ReLuma apoya la producción de colágeno, aumenta la hidratación y restaura la luminosidad, siendo ideal después de procedimientos (láseres, peelings, Retin-A) o como un régimen anti-envejecimiento premium diario.",
+    "paragraph3": "Confiado por esteticistas médicos con décadas de experiencia, ReLuma ha mostrado mejoras visibles en tan solo 4 a 6 semanas en textura, tono y líneas finas."
+  },
+  "beforeAfter": {
+    "heading": "Resultados Reales, Personas Reales",
+    "before": "Antes",
+    "after": "Después"
+  },
+  "products": {
+    "heading": "Comprar ReLuma",
+    "badges": {
+      "sale": "Oferta",
+      "new": "Nuevo",
+      "bestseller": "Más Vendido",
+      "travel": "Tamaño de Viaje"
+    },
+    "inStock": "En Stock",
+    "lowStock": "Stock Limitado",
+    "outOfStock": "Agotado",
+    "reviewCount": "{count} reseñas"
+  },
+  "testimonials": {
+    "heading": "Lo Que Dicen Nuestros Clientes"
+  },
+  "cta": {
+    "heading": "¿Listo para Transformar Tu Piel?",
+    "subheading": "Únete a miles de clientes satisfechos experimentando resultados reales",
+    "button": "Comprar ReLuma Ahora"
+  },
+  "eonlifeInfo": "EonLife Global es el distribuidor autorizado exclusivo de productos ReLuma. Nos asociamos directamente con los científicos que desarrollaron esta fórmula innovadora."
+}
