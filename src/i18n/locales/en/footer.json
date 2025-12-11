@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "quickLinks": "Quick Links",
+    "contact": "Contact",
+    "followUs": "Follow Us"
+  },
+  "links": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookiePreferences": "Cookie Preferences"
+  },
+  "contact": {
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "social": {
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter"
+  },
+  "copyright": "© {year} {company}. All rights reserved."
+}

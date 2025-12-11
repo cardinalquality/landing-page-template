@@ -1,0 +1,107 @@
+{
+  "hero": {
+    "headline": "Defy Aging with ReLuma Anti-Aging Serum",
+    "subheadline": "A revolutionary breakthrough in skin science and technology to help reduce your wrinkles",
+    "shopNow": "Shop Now",
+    "learnMore": "Learn More"
+  },
+  "about": {
+    "title": "What is ReLuma?",
+    "description": "ReLuma is the first bio-tech skin serum featuring Multiple Skin Growth Factors and Matrix Proteins, redefining skin care for the 21st Century. With over 387 Growth Factors identified, compared to similar products with fewer than 9.",
+    "features": [
+      "Rapidly diminishes fine lines and wrinkles",
+      "Natural anti-inflammatory properties",
+      "Repairs damaged cells and regenerates tissue",
+      "Evens skin tone and lightens pigmentation",
+      "Exclusive formula only available through EonLife"
+    ]
+  },
+  "stats": {
+    "value387": "387",
+    "value98": "98%",
+    "value4to6": "4-6",
+    "label387": "Growth Factors",
+    "label98": "Saw Results",
+    "label4to6": "Weeks to Change"
+  },
+  "science": {
+    "heading": "The Science of Growth Factors",
+    "bigNumber": "387",
+    "bigNumberLabel": "Growth Factors Identified",
+    "bigNumberCompare": "vs. competitors with fewer than 9",
+    "cards": {
+      "tgfb": {
+        "title": "TGF-β Family",
+        "description": "Most important growth factor in skin. Potent stimulator of collagen production.",
+        "icon": "🧬"
+      },
+      "pdgf": {
+        "title": "PDGF",
+        "description": "Platelet-derived growth factor promotes matrix production and reduces inflammation.",
+        "icon": "💧"
+      },
+      "matrix": {
+        "title": "Matrix Proteins",
+        "description": "Essential proteins that support skin structure and promote cellular regeneration.",
+        "icon": "✨"
+      }
+    }
+  },
+  "story": {
+    "heading": "Why ReLuma Works",
+    "paragraph1": "ReLuma is the first bio-tech skin serum featuring multiple skin growth factors and matrix proteins, redefining skin care for the 21st century. Over 387 growth factors have been identified—far more than competing products. It rapidly diminishes the appearance of fine lines, helps repair damaged cells, and naturally calms inflammation for smoother, more even skin.",
+    "paragraph2": "Exclusive to EonLife Global: we partner directly with the researchers behind ReLuma to ensure authenticity and maximum efficacy. Used daily, ReLuma supports collagen production, boosts hydration, and restores luminosity—making it ideal post-procedure (lasers, peels, Retin-A), or as a premium daily anti-aging regimen.",
+    "paragraph3": "Trusted by medical estheticians with decades of experience, ReLuma has shown visible improvements in as little as 4–6 weeks for texture, tone, and fine lines."
+  },
+  "beforeAfter": {
+    "heading": "Real Results, Real People",
+    "subheading": "See the transformative power of ReLuma",
+    "before": "Before",
+    "after": "After"
+  },
+  "products": {
+    "heading": "Shop ReLuma",
+    "subheading": "The next generation in age-defying skin care",
+    "badges": {
+      "sale": "Sale",
+      "new": "New",
+      "bestseller": "Bestseller",
+      "travel": "Travel Size"
+    },
+    "inStock": "In Stock",
+    "lowStock": "Low Stock",
+    "outOfStock": "Out of Stock",
+    "reviewCount": "{count} reviews"
+  },
+  "testimonials": {
+    "heading": "What Our Customers Say",
+    "items": [
+      {
+        "name": "Rosa Cardinal",
+        "location": "Medical Esthetician",
+        "text": "I have been in the skin care industry for over 37 years. Three weeks into using ReLuma and the difference was indisputably evident. My eyes have improved tremendously, my face has a glow, and my skin looks so much more even."
+      },
+      {
+        "name": "Kim Penney",
+        "location": "Verified Customer",
+        "text": "I am amazed at how my scars have faded away. My skin has been renewed and you can barely see the scars. I believe the ingredients in Reluma are the reason for this amazing healing."
+      },
+      {
+        "name": "MK",
+        "location": "Spa Director, Ritz Carlton Naples",
+        "text": "It's incredible! Everyone thinks I have had surgery and keep commenting on how good I look. Thank you so much for sharing this with me."
+      },
+      {
+        "name": "Ursula Kaiser",
+        "location": "Verified Customer",
+        "text": "I have been using ReLuma for two months and I have seen dramatic changes in my face. My lines and wrinkles softened and I have a more youthful look. Everyone tells me that I really look vibrant and rested."
+      }
+    ]
+  },
+  "cta": {
+    "heading": "Ready to Transform Your Skin?",
+    "subheading": "Join thousands of satisfied customers experiencing real results",
+    "button": "Shop ReLuma Now"
+  },
+  "eonlifeInfo": "EonLife Global is the exclusive authorized distributor of ReLuma products. We partner directly with the scientists who developed this breakthrough formula."
+}
