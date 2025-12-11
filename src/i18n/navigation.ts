@@ -4,8 +4,11 @@
  * Provides type-safe navigation functions that handle locales
  */
 
-import { createSharedPathnamesNavigation } from 'next-intl/navigation'
-import { locales } from './config'
+import { createNavigation } from 'next-intl/navigation'
+import { locales, defaultLocale } from './config'
 
-export const { Link, redirect, usePathname, useRouter } =
-  createSharedPathnamesNavigation({ locales })
+export const { Link, redirect, usePathname, useRouter } = createNavigation({
+  locales,
+  defaultLocale,
+  pathnames: {},
+})

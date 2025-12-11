@@ -3,13 +3,16 @@
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { getTenantConfig } from '@/tenants/config'
 import { useCartStore } from '@/core/stores/cart'
 import { CartSidebar } from '@/core/components/organisms'
+import { LanguageSwitcher } from '@/core/components/atoms/LanguageSwitcher'
 import type { Product } from '@/core/services/types'
 const ChatBot = dynamic(() => import('@/components/ChatBot'), { ssr: false })
 
 export default function HomePage() {
+  const t = useTranslations()
   const tenant = getTenantConfig('eonlife')!
   const addItem = useCartStore((state) => state.addItem)
   const openCart = useCartStore((state) => state.openCart)
@@ -26,34 +29,39 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Load n8n chat widget
-  useEffect(() => {
-    if (!document.querySelector('#n8n-chat-script')) {
-      const s = document.createElement('script')
-      s.id = 'n8n-chat-script'
-      s.type = 'module'
-      s.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat@latest'
-      document.body.appendChild(s)
-    }
-  }, [])
+  // Load n8n chat widget - DISABLED due to Vue/React incompatibility
+  // useEffect(() => {
+  //   if (!document.querySelector('#n8n-chat-script')) {
+  //     const s = document.createElement('script')
+  //     s.id = 'n8n-chat-script'
+  //     s.type = 'module'
+  //     s.src = 'https://cdn.jsdelivr.net/npm/@n8n/chat@latest'
+  //     document.body.appendChild(s)
+  //   }
+  // }, [])
 
   useEffect(() => {
     async function fetchProducts() {
       try {
+        console.log('Fetching products for tenant:', tenant.slug)
         const response = await fetch(`/api/products?tenant=${tenant.slug}`)
+        console.log('Products API response status:', response.status)
         const data = await response.json()
+        console.log('Products API data:', data)
         if (data.success && data.products) {
-          setProducts(
-            data.products.map((p: any) => ({
-              ...p,
-              description: p.description || '',
-              images:
-                (Array.isArray(p.images) && p.images.length && p.images) ||
-                (p.featuredImage?.url ? [p.featuredImage.url] : undefined) ||
-                (p.image ? [p.image] : ['/assets/eonlife/products/Reluma Large Bottle.png']),
-              inStock: p.inStock ?? true,
-            })),
-          )
+          const processedProducts = data.products.map((p: any) => ({
+            ...p,
+            description: p.description || '',
+            images:
+              (Array.isArray(p.images) && p.images.length && p.images) ||
+              (p.featuredImage?.url ? [p.featuredImage.url] : undefined) ||
+              (p.image ? [p.image] : ['/assets/eonlife/products/Reluma Large Bottle.png']),
+            inStock: p.inStock ?? true,
+          }))
+          console.log('Processed products:', processedProducts)
+          setProducts(processedProducts)
+        } else {
+          console.warn('API returned no products or failed:', data)
         }
       } catch (err) {
         console.error('Failed to fetch products:', err)
@@ -98,21 +106,30 @@ export default function HomePage() {
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center gap-8">
-              {['Products', 'Science', 'Results', 'Reviews'].map((item) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`} 
+              {[
+                { key: 'products', label: t('navigation.products') },
+                { key: 'science', label: t('navigation.science') },
+                { key: 'results', label: t('navigation.results') },
+                { key: 'reviews', label: t('navigation.reviews') },
+              ].map((item) => (
+                <a
+                  key={item.key}
+                  href={`#${item.key}`}
                   className={`font-medium transition-colors ${
                     scrolled ? 'text-gray-700 hover:text-teal-600' : 'text-white hover:text-teal-200'
                   }`}
                 >
-                  {item}
+                  {item.label}
                 </a>
               ))}
             </nav>
 
-            {/* Cart Button */}
-            <button
+            {/* Language Switcher & Cart */}
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
+
+              {/* Cart Button */}
+              <button
               onClick={openCart}
               className={`relative p-3 rounded-full transition-all ${
                 scrolled 
@@ -128,7 +145,8 @@ export default function HomePage() {
                   {itemCount}
                 </span>
               )}
-            </button>
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -162,23 +180,23 @@ export default function HomePage() {
               {/* Text */}
               <div className="text-white">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  {content.hero.headline}
+                  {t('hero.headline')}
                 </h1>
                 <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-lg">
-                  {content.hero.subheadline}
+                  {t('hero.subheadline')}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <button
                     onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
                     className="px-8 py-4 bg-white text-teal-600 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all"
                   >
-                    Shop Now
+                    {t('hero.shopNow')}
                   </button>
                   <button
                     onClick={() => document.getElementById('science')?.scrollIntoView({ behavior: 'smooth' })}
                     className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold text-lg hover:bg-white/10 transition-all"
                   >
-                    Learn More
+                    {t('hero.learnMore')}
                   </button>
                 </div>
               </div>
@@ -212,16 +230,16 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-3 gap-8 text-center text-white">
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-teal-400">387</div>
-                <div className="text-sm md:text-base text-gray-400">Growth Factors</div>
+                <div className="text-3xl md:text-4xl font-bold text-teal-400">{t('stats.value387')}</div>
+                <div className="text-sm md:text-base text-gray-400">{t('stats.label387')}</div>
               </div>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-teal-400">98%</div>
-                <div className="text-sm md:text-base text-gray-400">Saw Results</div>
+                <div className="text-3xl md:text-4xl font-bold text-teal-400">{t('stats.value98')}</div>
+                <div className="text-sm md:text-base text-gray-400">{t('stats.label98')}</div>
               </div>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-teal-400">4-6</div>
-                <div className="text-sm md:text-base text-gray-400">Weeks to Change</div>
+                <div className="text-3xl md:text-4xl font-bold text-teal-400">{t('stats.value4to6')}</div>
+                <div className="text-sm md:text-base text-gray-400">{t('stats.label4to6')}</div>
               </div>
             </div>
           </div>
@@ -246,29 +264,29 @@ export default function HomePage() {
               {/* Content */}
               <div className="order-1 lg:order-2">
                 <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">
-                  {content.about.title}
+                  {t('about.title')}
                 </h2>
                 <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                  {content.about.description}
+                  {t('about.description')}
                 </p>
-                
+
                 {/* EonLife Info */}
                 <div className="bg-teal-50 border-l-4 border-teal-500 p-4 mb-8 rounded-r-lg">
                   <p className="text-gray-700">
-                    <strong className="text-teal-700">EonLife Global</strong> is the exclusive authorized distributor of ReLuma products. We partner directly with the scientists who developed this breakthrough formula.
+                    <strong className="text-teal-700">EonLife Global</strong> {t('eonlifeInfo')}
                   </p>
                 </div>
 
                 {/* Features */}
                 <ul className="space-y-4">
-                  {(content.about.features || []).map((feature: string, idx: number) => (
+                  {['about.features.0', 'about.features.1', 'about.features.2', 'about.features.3', 'about.features.4'].map((key, idx) => (
                     <li key={idx} className="flex items-start gap-3">
                       <span className="flex-shrink-0 w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center mt-0.5">
                         <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       </span>
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-gray-700">{t(key)}</span>
                     </li>
                   ))}
                 </ul>
@@ -282,7 +300,7 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">
-                The Science of Growth Factors
+                {t('science.heading')}
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 {content.science?.description}
@@ -292,23 +310,19 @@ export default function HomePage() {
             {/* Big Number Highlight */}
             <div className="relative overflow-hidden rounded-3xl p-12 text-center text-white mb-16 bg-gradient-to-br from-teal-500 to-teal-700">
               <div className="relative z-10">
-                <div className="text-7xl md:text-9xl font-bold mb-4">387</div>
-                <div className="text-xl md:text-2xl font-medium mb-2">Growth Factors Identified</div>
-                <div className="text-white/80">vs. competitors with fewer than 9</div>
+                <div className="text-7xl md:text-9xl font-bold mb-4">{t('science.bigNumber')}</div>
+                <div className="text-xl md:text-2xl font-medium mb-2">{t('science.bigNumberLabel')}</div>
+                <div className="text-white/80">{t('science.bigNumberCompare')}</div>
               </div>
             </div>
 
             {/* Science Cards */}
             <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { title: 'TGF-β Family', desc: 'Most important growth factor in skin. Potent stimulator of collagen production.', icon: '🧬' },
-                { title: 'PDGF', desc: 'Platelet-derived growth factor promotes matrix production and reduces inflammation.', icon: '💧' },
-                { title: 'Matrix Proteins', desc: 'Essential proteins that support skin structure and promote cellular regeneration.', icon: '✨' },
-              ].map((card, idx) => (
-                <div key={idx} className="bg-gray-50 rounded-2xl p-8 text-center hover:shadow-xl transition-shadow">
-                  <div className="text-5xl mb-4">{card.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 text-teal-600">{card.title}</h3>
-                  <p className="text-gray-600">{card.desc}</p>
+              {['tgfb', 'pdgf', 'matrix'].map((cardKey) => (
+                <div key={cardKey} className="bg-gray-50 rounded-2xl p-8 text-center hover:shadow-xl transition-shadow">
+                  <div className="text-5xl mb-4">{t(`science.cards.${cardKey}.icon`)}</div>
+                  <h3 className="text-xl font-bold mb-3 text-teal-600">{t(`science.cards.${cardKey}.title`)}</h3>
+                  <p className="text-gray-600">{t(`science.cards.${cardKey}.description`)}</p>
                 </div>
               ))}
             </div>
@@ -319,22 +333,15 @@ export default function HomePage() {
         <section className="py-24 bg-gray-50">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white rounded-3xl shadow-xl p-10 border border-gray-100">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-teal-600">Why ReLuma Works</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-teal-600">{t('story.heading')}</h2>
               <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-                ReLuma is the first bio-tech skin serum featuring multiple skin growth factors and matrix proteins,
-                redefining skin care for the 21st century. Over 387 growth factors have been identified—far more than
-                competing products. It rapidly diminishes the appearance of fine lines, helps repair damaged cells, and
-                naturally calms inflammation for smoother, more even skin.
+                {t('story.paragraph1')}
               </p>
               <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-                Exclusive to EonLife Global: we partner directly with the researchers behind ReLuma to ensure
-                authenticity and maximum efficacy. Used daily, ReLuma supports collagen production, boosts hydration, and
-                restores luminosity—making it ideal post-procedure (lasers, peels, Retin-A), or as a premium daily
-                anti-aging regimen.
+                {t('story.paragraph2')}
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
-                Trusted by medical estheticians with decades of experience, ReLuma has shown visible improvements in as
-                little as 4–6 weeks for texture, tone, and fine lines.
+                {t('story.paragraph3')}
               </p>
             </div>
           </div>
@@ -345,10 +352,10 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">
-                Real Results, Real People
+                {t('beforeAfter.heading')}
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                See the transformative power of ReLuma
+                {t('beforeAfter.subheading')}
               </p>
             </div>
 
@@ -387,8 +394,8 @@ export default function HomePage() {
                   </div>
 
                   {/* Labels */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full">Before</div>
-                  <div className="absolute top-4 right-4 px-3 py-1 bg-white text-gray-800 text-sm rounded-full shadow">After</div>
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-black/60 text-white text-sm rounded-full">{t('beforeAfter.before')}</div>
+                  <div className="absolute top-4 right-4 px-3 py-1 bg-white text-gray-800 text-sm rounded-full shadow">{t('beforeAfter.after')}</div>
 
                   <input
                     type="range"
@@ -433,9 +440,9 @@ export default function HomePage() {
         <section id="products" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">Shop ReLuma</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">{t('products.heading')}</h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                The next generation in age-defying skin care
+                {t('products.subheading')}
               </p>
             </div>
 
@@ -494,11 +501,11 @@ export default function HomePage() {
         <section id="testimonials" className="py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">What Our Customers Say</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">{t('testimonials.heading')}</h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {(content.testimonials || []).map((t: any, idx: number) => (
+              {[0, 1, 2, 3].map((idx) => (
                 <div key={idx} className="bg-white rounded-2xl p-6 shadow-lg">
                   <div className="flex gap-1 mb-4">
                     {[...Array(5)].map((_, i) => (
@@ -507,10 +514,10 @@ export default function HomePage() {
                       </svg>
                     ))}
                   </div>
-                  <p className="text-gray-600 mb-4 text-sm italic">"{t.text}"</p>
+                  <p className="text-gray-600 mb-4 text-sm italic">&quot;{t(`testimonials.items.${idx}.text`)}&quot;</p>
                   <div>
-                    <div className="font-semibold text-gray-900">{t.name}</div>
-                    <div className="text-xs text-gray-500">{t.location}</div>
+                    <div className="font-semibold text-gray-900">{t(`testimonials.items.${idx}.name`)}</div>
+                    <div className="text-xs text-gray-500">{t(`testimonials.items.${idx}.location`)}</div>
                   </div>
                 </div>
               ))}
@@ -521,15 +528,15 @@ export default function HomePage() {
         {/* ==================== CTA SECTION ==================== */}
         <section className="py-24 bg-gradient-to-br from-teal-500 to-teal-700 text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Skin?</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">{t('cta.heading')}</h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Join thousands of satisfied customers who have discovered the power of 387 growth factors.
+              {t('cta.subheading')}
             </p>
             <button
               onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
               className="px-10 py-5 bg-white text-teal-600 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all"
             >
-              Shop Now
+              {t('cta.button')}
             </button>
           </div>
         </section>

@@ -5,12 +5,15 @@
  */
 
 import { getRequestConfig } from 'next-intl/server'
-import { notFound } from 'next/navigation'
 import { locales } from './config'
 
-export default getRequestConfig(async ({ locale }) => {
+export default getRequestConfig(async ({ requestLocale }) => {
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) notFound()
+  let locale = await requestLocale
+
+  if (!locale || !locales.includes(locale as any)) {
+    locale = 'en' // fallback to English
+  }
 
   // Load all translation namespaces
   const [common, home, footer] = await Promise.all([
@@ -20,6 +23,7 @@ export default getRequestConfig(async ({ locale }) => {
   ])
 
   return {
+    locale,
     messages: {
       ...common.default,
       ...home.default,

@@ -9,10 +9,12 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  const { locale } = await params
+
   // TODO: Load locale-specific metadata from translations
   const titles = {
     en: 'EonLife | ReLuma Anti-Aging Serum with 387 Growth Factors',
@@ -32,11 +34,13 @@ export async function generateMetadata({
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
+
   // Validate locale
   if (!locales.includes(locale as any)) {
     notFound()

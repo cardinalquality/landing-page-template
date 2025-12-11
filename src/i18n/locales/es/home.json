@@ -1,8 +1,28 @@
 {
+  "hero": {
+    "headline": "Desafía el Envejecimiento con el Suero Anti-Edad ReLuma",
+    "subheadline": "Un avance revolucionario en la ciencia y tecnología de la piel para ayudar a reducir tus arrugas",
+    "shopNow": "Comprar Ahora",
+    "learnMore": "Más Información"
+  },
+  "about": {
+    "title": "¿Qué es ReLuma?",
+    "description": "ReLuma es el primer suero biotecnológico para la piel que presenta Múltiples Factores de Crecimiento de la Piel y Proteínas de Matriz, redefiniendo el cuidado de la piel para el Siglo XXI. Con más de 387 Factores de Crecimiento identificados, comparado con productos similares con menos de 9.",
+    "features": [
+      "Disminuye rápidamente las líneas finas y arrugas",
+      "Propiedades antiinflamatorias naturales",
+      "Repara células dañadas y regenera tejido",
+      "Uniforma el tono de la piel y aclara la pigmentación",
+      "Fórmula exclusiva solo disponible a través de EonLife"
+    ]
+  },
   "stats": {
     "value387": "387",
     "value98": "98%",
-    "value4to6": "4-6"
+    "value4to6": "4-6",
+    "label387": "Factores de Crecimiento",
+    "label98": "Vieron Resultados",
+    "label4to6": "Semanas para el Cambio"
   },
   "science": {
     "heading": "La Ciencia de los Factores de Crecimiento",
@@ -35,11 +55,13 @@
   },
   "beforeAfter": {
     "heading": "Resultados Reales, Personas Reales",
+    "subheading": "Mira el poder transformador de ReLuma",
     "before": "Antes",
     "after": "Después"
   },
   "products": {
     "heading": "Comprar ReLuma",
+    "subheading": "La próxima generación en el cuidado de la piel anti-envejecimiento",
     "badges": {
       "sale": "Oferta",
       "new": "Nuevo",
@@ -52,7 +74,29 @@
     "reviewCount": "{count} reseñas"
   },
   "testimonials": {
-    "heading": "Lo Que Dicen Nuestros Clientes"
+    "heading": "Lo Que Dicen Nuestros Clientes",
+    "items": [
+      {
+        "name": "Rosa Cardinal",
+        "location": "Esteticista Médica",
+        "text": "He estado en la industria del cuidado de la piel durante más de 37 años. Tres semanas usando ReLuma y la diferencia fue indiscutiblemente evidente. Mis ojos han mejorado tremendamente, mi rostro tiene un brillo y mi piel se ve mucho más uniforme."
+      },
+      {
+        "name": "Kim Penney",
+        "location": "Cliente Verificado",
+        "text": "Estoy asombrada de cómo mis cicatrices se han desvanecido. Mi piel se ha renovado y apenas se pueden ver las cicatrices. Creo que los ingredientes en Reluma son la razón de esta increíble sanación."
+      },
+      {
+        "name": "MK",
+        "location": "Directora de Spa, Ritz Carlton Naples",
+        "text": "¡Es increíble! Todos piensan que me he hecho una cirugía y siguen comentando lo bien que me veo. Muchas gracias por compartir esto conmigo."
+      },
+      {
+        "name": "Ursula Kaiser",
+        "location": "Cliente Verificado",
+        "text": "He estado usando ReLuma durante dos meses y he visto cambios dramáticos en mi rostro. Mis líneas y arrugas se suavizaron y tengo un aspecto más juvenil. Todos me dicen que me veo realmente vibrante y descansada."
+      }
+    ]
   },
   "cta": {
     "heading": "¿Listo para Transformar Tu Piel?",
