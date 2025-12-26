@@ -24,15 +24,24 @@ export function CartSidebar() {
     setCheckoutError(null)
 
     try {
+      console.log('Starting checkout with items:', items)
+
       // Validate all items have variant IDs before proceeding
       const itemsWithVariants = items.map(item => {
-        const variantId = item.variantId || item.product.variants?.[0]?.id
+        const variantId = item.variantId
+        console.log('Checking item:', {
+          productName: item.product.name,
+          variantId,
+          productVariants: item.product.variants
+        })
         if (!variantId) {
           console.warn(`No variant ID for product ${item.product.name}`)
           return null
         }
         return { variantId, quantity: item.quantity }
       }).filter((item): item is { variantId: string; quantity: number } => item !== null)
+
+      console.log('Items with variants:', itemsWithVariants)
 
       if (itemsWithVariants.length === 0) {
         throw new Error('No valid items to checkout')

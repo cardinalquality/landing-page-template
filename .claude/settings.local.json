@@ -23,7 +23,9 @@
       "Bash(git checkout:*)",
       "Bash(ls:*)",
       "Bash(git merge:*)",
-      "Bash(npm run validate:env:*)"
+      "Bash(npm run validate:env:*)",
+      "Bash(npm run dev:*)",
+      "Bash(lsof:*)"
     ],
     "deny": [],
     "ask": []

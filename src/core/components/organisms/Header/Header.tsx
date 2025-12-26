@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { Link } from '@/i18n/navigation'
 import { useCartStore } from '@/core/stores/cart'
 import { getTenantConfig } from '@/tenants/config'
 
@@ -14,7 +15,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center">
+          <Link href={"/" as any} className="flex items-center">
             <div className="relative h-12 w-48">
               <Image
                 src={tenant.theme.logo}
@@ -24,7 +25,7 @@ export function Header() {
                 priority
               />
             </div>
-          </a>
+          </Link>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
