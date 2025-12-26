@@ -278,10 +278,12 @@ export function CartSidebar() {
                 )}
               </button>
 
-              {/* Test card info for Shopify Bogus Gateway */}
-              <p className="text-xs text-gray-400 text-center">
-                Test: Card # <strong>1</strong> • Any future date • Any CVV
-              </p>
+              {/* Test card info for Shopify Bogus Gateway (dev only) */}
+              {process.env.NODE_ENV === 'development' && (
+                <p className="text-xs text-gray-400 text-center">
+                  Test: Card # <strong>1</strong> • Any future date • Any CVV
+                </p>
+              )}
             </div>
           )}
         </div>
