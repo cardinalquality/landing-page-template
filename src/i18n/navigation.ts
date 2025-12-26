@@ -5,10 +5,6 @@
  */
 
 import { createNavigation } from 'next-intl/navigation'
-import { locales, defaultLocale } from './config'
+import { routing } from './routing'
 
-export const { Link, redirect, usePathname, useRouter } = createNavigation({
-  locales,
-  defaultLocale,
-  pathnames: {},
-})
+export const { Link, redirect, usePathname, useRouter } = createNavigation(routing)

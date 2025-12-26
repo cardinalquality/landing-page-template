@@ -21,7 +21,9 @@
       "Bash(npm update:*)",
       "Bash(TURBOPACK=0 npm run build:*)",
       "Bash(git checkout:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git merge:*)",
+      "Bash(npm run validate:env:*)"
     ],
     "deny": [],
     "ask": []

@@ -21,7 +21,7 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     /* Next.js */
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {

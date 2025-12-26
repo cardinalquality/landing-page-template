@@ -1,15 +1,35 @@
 import { TenantConfig, TenantSlug, TenantShopifyConfig } from './schema'
+import { env } from '@/core/lib/env'
 
 /**
  * Helper to get Shopify config from environment variables
  * Each tenant can have its own Shopify store
+ *
+ * Automatically uses the correct environment:
+ * - Development: Uses dev Shopify stores from .env.development
+ * - Production: Uses production Shopify stores from Vercel environment variables
  */
 function getShopifyConfig(tenantSlug: string): TenantShopifyConfig | undefined {
-  const storeDomain = process.env[`SHOPIFY_${tenantSlug.toUpperCase()}_STORE_DOMAIN`]
-  const accessToken = process.env[`SHOPIFY_${tenantSlug.toUpperCase()}_STOREFRONT_ACCESS_TOKEN`]
+  const tenantUpper = tenantSlug.toUpperCase()
+  const storeDomain = process.env[`SHOPIFY_${tenantUpper}_STORE_DOMAIN`]
+  const accessToken = process.env[`SHOPIFY_${tenantUpper}_STOREFRONT_ACCESS_TOKEN`]
 
   if (!storeDomain || !accessToken) {
+    if (env.isDevelopment) {
+      console.warn(
+        `⚠️  Shopify config missing for tenant "${tenantSlug}" in ${env.nodeEnv} environment.\n` +
+        `   Expected environment variables:\n` +
+        `   - SHOPIFY_${tenantUpper}_STORE_DOMAIN\n` +
+        `   - SHOPIFY_${tenantUpper}_STOREFRONT_ACCESS_TOKEN\n` +
+        `   Please check your .env.development file or Vercel environment variables.`
+      )
+    }
     return undefined
+  }
+
+  // Log which Shopify store is being used (development only)
+  if (env.isDevelopment) {
+    console.log(`✓ Shopify configured for "${tenantSlug}": ${storeDomain}`)
   }
 
   return {
