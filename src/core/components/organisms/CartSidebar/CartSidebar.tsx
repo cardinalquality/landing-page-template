@@ -251,6 +251,13 @@ export function CartSidebar() {
                 <span style={{ color: tenant.theme.primaryColor }}>${total.toFixed(2)}</span>
               </div>
 
+              {/* Installment Info */}
+              {total >= 50 && (
+                <div className="text-xs text-gray-500 text-center pt-2">
+                  or 4 interest-free payments of ${(total / 4).toFixed(2)} with Shop Pay
+                </div>
+              )}
+
               {/* Checkout Error */}
               {checkoutError && (
                 <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">

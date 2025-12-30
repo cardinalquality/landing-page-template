@@ -488,7 +488,12 @@ export default function HomePage() {
                       <p className="text-gray-500 text-sm mb-4 line-clamp-2">{product.description}</p>
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className="text-2xl font-bold text-teal-600">${product.price.toFixed(2)}</span>
+                          <div className="text-2xl font-bold text-teal-600 mb-1">${product.price.toFixed(2)}</div>
+                          {product.price >= 50 && (
+                            <div className="text-xs text-gray-500">
+                              or 4 payments of ${(product.price / 4).toFixed(2)}
+                            </div>
+                          )}
                         </div>
                         <button
                           onClick={() => handleAddToCart(product)}
@@ -564,8 +569,7 @@ export default function HomePage() {
                   className="h-14 w-auto mb-6"
                 />
                 <p className="text-gray-400 max-w-md">
-                  EonLife Global is the exclusive authorized distributor of ReLuma products. 
-                  Redefining skincare for the 21st century with 387 human growth factors.
+                  EonLife Global is an exclusive authorized distributor of ReLuma products.
                 </p>
               </div>
 
