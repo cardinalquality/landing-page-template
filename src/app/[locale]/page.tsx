@@ -512,7 +512,7 @@ export default function HomePage() {
         </section>
 
         {/* ==================== TESTIMONIALS ==================== */}
-        <section id="testimonials" className="py-24 bg-gray-50">
+        <section id="reviews" className="py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-teal-600">{t('testimonials.heading')}</h2>
@@ -580,7 +580,7 @@ export default function HomePage() {
                   <li><a href="#products" className="hover:text-white transition-colors">Products</a></li>
                   <li><a href="#science" className="hover:text-white transition-colors">Science</a></li>
                   <li><a href="#results" className="hover:text-white transition-colors">Results</a></li>
-                  <li><a href="#testimonials" className="hover:text-white transition-colors">Reviews</a></li>
+                  <li><a href="#reviews" className="hover:text-white transition-colors">Reviews</a></li>
                 </ul>
               </div>
 
