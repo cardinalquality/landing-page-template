@@ -61,15 +61,16 @@ export default function ChatBot() {
     setIsLoading(true)
 
     try {
-      const webhookUrl =
+      const baseWebhookUrl =
         process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
         'https://n8n.cardinalquality.com/webhook/463f1166-f02d-4440-b09f-318f0eafd706/chat'
 
       const sessionId = getSessionId()
 
-      // n8n chat trigger expects the payload in this exact format
+      // n8n chat trigger expects action as query parameter and data in body
+      const webhookUrl = `${baseWebhookUrl}?action=sendMessage`
+
       const payload = {
-        action: 'sendMessage',
         sessionId: sessionId,
         chatInput: userMessage.content,
       }
