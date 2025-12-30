@@ -25,7 +25,9 @@
       "Bash(git merge:*)",
       "Bash(npm run validate:env:*)",
       "Bash(npm run dev:*)",
-      "Bash(lsof:*)"
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(git check-ignore:*)"
     ],
     "deny": [],
     "ask": []

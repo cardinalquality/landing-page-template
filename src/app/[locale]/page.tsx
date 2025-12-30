@@ -73,7 +73,16 @@ export default function HomePage() {
   }, [tenant.slug])
 
   const handleAddToCart = (product: Product) => {
-    addItem(product, 1, product.variants?.[0]?.id)
+    const variantId = product.variants?.[0]?.id
+    console.log('Adding to cart:', {
+      productName: product.name,
+      productId: product.id,
+      variantId,
+      hasVariants: !!product.variants,
+      variantsLength: product.variants?.length,
+      firstVariant: product.variants?.[0]
+    })
+    addItem(product, 1, variantId)
     openCart()
   }
 
@@ -575,30 +584,32 @@ export default function HomePage() {
               <div>
                 <h4 className="font-semibold mb-4">Contact</h4>
                 <ul className="space-y-2 text-gray-400">
-                  <li>support@eonlife.com</li>
-                  <li>1-800-EON-LIFE</li>
+                  <li>eonlifeglobal@gmail.com</li>
+                  <li>407 743 0079</li>
                 </ul>
-                {/* Social Icons */}
-                <div className="flex gap-4 mt-6">
-                  {/* Facebook */}
-                  <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-teal-600 transition-colors">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.5h-4.33C10.24.5,9.5,3.44,9.5,5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4Z"/>
-                    </svg>
-                  </a>
-                  {/* Instagram */}
-                  <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-teal-600 transition-colors">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12,2.2c3.2,0,3.6,0,4.9.1,3.3.1,4.8,1.7,4.9,4.9.1,1.3.1,1.6.1,4.8s0,3.6-.1,4.9c-.1,3.2-1.7,4.8-4.9,4.9-1.3.1-1.6.1-4.9.1s-3.6,0-4.9-.1c-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.9s0-3.6.1-4.9C2.4,3.9,4,2.3,7.1,2.2,8.4,2.2,8.8,2.2,12,2.2ZM12,0C8.7,0,8.3,0,7,0,2.7.3.3,2.7,0,7,0,8.3,0,8.7,0,12s0,3.7,0,5c.3,4.3,2.7,6.7,7,7,1.3,0,1.7,0,5,0s3.7,0,5,0c4.3-.3,6.7-2.7,7-7,0-1.3,0-1.7,0-5s0-3.7,0-5C23.7,2.7,21.3.3,17,0,15.7,0,15.3,0,12,0Zm0,5.8A6.2,6.2,0,1,0,18.2,12,6.2,6.2,0,0,0,12,5.8ZM12,16a4,4,0,1,1,4-4A4,4,0,0,1,12,16ZM18.4,4.2a1.4,1.4,0,1,0,1.4,1.4A1.4,1.4,0,0,0,18.4,4.2Z"/>
-                    </svg>
-                  </a>
-                  {/* LinkedIn */}
-                  <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-teal-600 transition-colors">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.45,20.45H16.9V14.88c0-1.33,0-3-1.85-3s-2.13,1.45-2.13,2.94v5.66H9.37V9h3.41v1.56h0a3.74,3.74,0,0,1,3.37-1.85c3.6,0,4.27,2.37,4.27,5.46ZM5.34,7.43A2.06,2.06,0,1,1,7.4,5.37,2.06,2.06,0,0,1,5.34,7.43Zm1.77,13H3.56V9H7.11ZM22.22,0H1.77A1.75,1.75,0,0,0,0,1.73V22.27A1.75,1.75,0,0,0,1.77,24H22.22A1.76,1.76,0,0,0,24,22.27V1.73A1.76,1.76,0,0,0,22.22,0Z"/>
-                    </svg>
-                  </a>
-                </div>
+                {/* Social Icons - Hidden until social media accounts are ready */}
+                {false && (
+                  <div className="flex gap-4 mt-6">
+                    {/* Facebook */}
+                    <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-teal-600 transition-colors">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.5h-4.33C10.24.5,9.5,3.44,9.5,5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4Z"/>
+                      </svg>
+                    </a>
+                    {/* Instagram */}
+                    <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-teal-600 transition-colors">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12,2.2c3.2,0,3.6,0,4.9.1,3.3.1,4.8,1.7,4.9,4.9.1,1.3.1,1.6.1,4.8s0,3.6-.1,4.9c-.1,3.2-1.7,4.8-4.9,4.9-1.3.1-1.6.1-4.9.1s-3.6,0-4.9-.1c-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.9s0-3.6.1-4.9C2.4,3.9,4,2.3,7.1,2.2,8.4,2.2,8.8,2.2,12,2.2ZM12,0C8.7,0,8.3,0,7,0,2.7.3.3,2.7,0,7,0,8.3,0,8.7,0,12s0,3.7,0,5c.3,4.3,2.7,6.7,7,7,1.3,0,1.7,0,5,0s3.7,0,5,0c4.3-.3,6.7-2.7,7-7,0-1.3,0-1.7,0-5s0-3.7,0-5C23.7,2.7,21.3.3,17,0,15.7,0,15.3,0,12,0Zm0,5.8A6.2,6.2,0,1,0,18.2,12,6.2,6.2,0,0,0,12,5.8ZM12,16a4,4,0,1,1,4-4A4,4,0,0,1,12,16ZM18.4,4.2a1.4,1.4,0,1,0,1.4,1.4A1.4,1.4,0,0,0,18.4,4.2Z"/>
+                      </svg>
+                    </a>
+                    {/* LinkedIn */}
+                    <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-teal-600 transition-colors">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.45,20.45H16.9V14.88c0-1.33,0-3-1.85-3s-2.13,1.45-2.13,2.94v5.66H9.37V9h3.41v1.56h0a3.74,3.74,0,0,1,3.37-1.85c3.6,0,4.27,2.37,4.27,5.46ZM5.34,7.43A2.06,2.06,0,1,1,7.4,5.37,2.06,2.06,0,0,1,5.34,7.43Zm1.77,13H3.56V9H7.11ZM22.22,0H1.77A1.75,1.75,0,0,0,0,1.73V22.27A1.75,1.75,0,0,0,1.77,24H22.22A1.76,1.76,0,0,0,24,22.27V1.73A1.76,1.76,0,0,0,22.22,0Z"/>
+                      </svg>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
 
