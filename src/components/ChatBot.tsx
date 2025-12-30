@@ -61,23 +61,17 @@ export default function ChatBot() {
     setIsLoading(true)
 
     try {
-      const baseWebhookUrl =
-        process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
-        'https://n8n.cardinalquality.com/webhook/463f1166-f02d-4440-b09f-318f0eafd706'
-
       const sessionId = getSessionId()
-
-      // n8n chat trigger expects action as query parameter and data in body
-      const webhookUrl = `${baseWebhookUrl}?action=sendMessage`
 
       const payload = {
         sessionId: sessionId,
         chatInput: userMessage.content,
       }
 
-      console.log('Sending to n8n:', { webhookUrl, payload })
+      console.log('Sending to chat API:', payload)
 
-      const response = await fetch(webhookUrl, {
+      // Call our Next.js API route which proxies to n8n
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -120,6 +114,10 @@ export default function ChatBot() {
       setMessages((prev) => [...prev, assistantMessage])
     } catch (error) {
       console.error('Chatbot error:', error)
+      console.error('Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined,
+      })
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
         role: 'assistant',
