@@ -63,7 +63,7 @@ export default function ChatBot() {
     try {
       const webhookUrl =
         process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
-        'https://ncardinal.app.n8n.cloud/webhook/463f1166-f02d-4440-b09f-318f0eafd706/chat'
+        'https://n8n.cardinalquality.com/webhook/463f1166-f02d-4440-b09f-318f0eafd706/chat'
 
       const sessionId = getSessionId()
       const payload = {
