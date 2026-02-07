@@ -91,22 +91,57 @@ Customers see "eonlife-dev" (or your store name) in the Shopify checkout header 
    - Find **Checkout language** and click "Manage checkout language"
    - OR go to **Settings → Branding** to update header
 
-4. **Option A: Remove Header Logo from Checkout**
-   - Go to **Settings → Checkout and accounts**
-   - Under **Checkout**, disable "Show your logo" option
-   - This removes the header entirely for a cleaner checkout experience
+4. **Option A: Redirect Shopify Storefront to Next.js App (RECOMMENDED)**
+   - Make the Shopify storefront (`eonlife-dev.myshopify.com`) redirect to your Next.js site
+   - When customers click "eonlife-dev" in checkout header, they'll be redirected to `www.eonlifewellness.net/en`
+   - Steps:
+     1. Login to Shopify Admin: `https://eonlife-2.myshopify.com/admin`
+     2. Go to **Sales channels → Online Store → Themes**
+     3. Click **•••** (three dots) on your current theme → **Edit code**
+     4. In the **Layout** folder, click `theme.liquid`
+     5. Find the opening `<head>` tag (near the top)
+     6. Add this code right after `<head>`:
+     ```html
+     {% unless template contains 'checkout' or template contains 'cart' or template contains 'order' %}
+       <script>
+         window.location.href = 'https://www.eonlifewellness.net/en';
+       </script>
+     {% endunless %}
+     ```
+     7. Click **Save**
+   - **What this does**: Redirects all storefront pages to your Next.js site, but keeps Shopify checkout working
+   - **Pros**: Simple, free, solves the clickable header problem
+   - **Cons**: Customers briefly see Shopify before redirect (~200ms)
 
-5. **Option B: Change Header Link Destination**
+5. **Option B: Remove Header Logo from Checkout**
+   - Go to **Settings → Checkout and accounts** or **Settings → Branding**
+   - Find the **Logo** section
+   - Click **"Remove"** under the image
+   - This removes the logo image (text link may still remain)
+
+6. **Option C: Change Header Link Destination**
    - This requires Shopify Plus or checkout customization
    - Use Checkout Extensions to customize the header
    - Add custom HTML/CSS to override the default link behavior
 
-6. **Option C: Use Custom Domain (Recommended)**
+7. **Option D: Use Custom Domain (ONLY works if DNS points to Shopify)**
    - Go to **Settings → Domains**
    - Add your custom domain (e.g., `eonlife.com`)
    - Set it as the primary domain
    - This makes the checkout header link to your custom domain instead of `.myshopify.com`
-   - **Note:** You'll need to configure your domain's DNS settings and set up redirects from your domain to your Next.js app
+   - **CRITICAL LIMITATION:** This requires your domain's DNS to point to Shopify's servers, which will break your Next.js site on Vercel
+   - **Not recommended if using headless architecture**
+
+8. **Option E: Use Subdomain for Checkout**
+   - Keep main domain pointing to Vercel: `www.eonlifewellness.net` → Next.js
+   - Create subdomain for checkout: `shop.eonlifewellness.net` → Shopify
+   - Steps:
+     1. In GoDaddy DNS, add CNAME record: `shop` → `shops.myshopify.com`
+     2. In Shopify Settings → Domains, add `shop.eonlifewellness.net`
+     3. Set it as primary domain for checkout
+     4. Checkout header will now show "shop.eonlifewellness.net"
+   - **Pros:** Keeps Next.js site working, professional checkout branding
+   - **Cons:** Subdomain visible in URL when user is checking out
 
 ### Best Practice: Custom Domain Setup
 The best long-term solution is to:
