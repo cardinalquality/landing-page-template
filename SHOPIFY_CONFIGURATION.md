@@ -72,18 +72,53 @@ This is working as intended. Tax rates vary by location, so Shopify calculates t
 
 ---
 
-## Checkout Branding (Header Navigation)
+## Checkout Branding (Header Navigation) - CRITICAL FIX NEEDED
 
-### Potential Issue
-If customers see an "Eonlife" header on the Shopify checkout page that links to your Shopify store instead of your Next.js app, this is a Shopify checkout customization issue.
+### Problem
+Customers see "eonlife-dev" (or your store name) in the Shopify checkout header that links to your Shopify storefront (`https://eonlife-dev.myshopify.com`) instead of your Next.js app.
 
-### Solution
-1. Go to **Settings → Checkout**
-2. Under **Checkout customization**, click "Customize"
-3. In the checkout editor:
-   - Remove or update header logo link
-   - Configure logo to link back to your Next.js app (`https://your-nextjs-domain.com`)
-   - Or remove the logo from checkout entirely for a cleaner flow
+### Solution: Update Checkout Settings
+
+1. **Login to Shopify Admin**
+   - Go to: `https://eonlife-2.myshopify.com/admin`
+
+2. **Navigate to Checkout Settings**
+   - Go to **Settings → Checkout and accounts**
+   - OR direct link: `https://admin.shopify.com/store/[your-store]/settings/checkout`
+
+3. **Update Store Information**
+   - Scroll to **Checkout** section
+   - Find **Checkout language** and click "Manage checkout language"
+   - OR go to **Settings → Branding** to update header
+
+4. **Option A: Remove Header Logo from Checkout**
+   - Go to **Settings → Checkout and accounts**
+   - Under **Checkout**, disable "Show your logo" option
+   - This removes the header entirely for a cleaner checkout experience
+
+5. **Option B: Change Header Link Destination**
+   - This requires Shopify Plus or checkout customization
+   - Use Checkout Extensions to customize the header
+   - Add custom HTML/CSS to override the default link behavior
+
+6. **Option C: Use Custom Domain (Recommended)**
+   - Go to **Settings → Domains**
+   - Add your custom domain (e.g., `eonlife.com`)
+   - Set it as the primary domain
+   - This makes the checkout header link to your custom domain instead of `.myshopify.com`
+   - **Note:** You'll need to configure your domain's DNS settings and set up redirects from your domain to your Next.js app
+
+### Best Practice: Custom Domain Setup
+The best long-term solution is to:
+1. Use a custom domain for your Shopify store
+2. Configure DNS to point your domain to your Next.js app (Vercel)
+3. Use Shopify's Buy Button or Storefront API for products (which you're already doing)
+4. This way, the entire experience stays under your brand domain
+
+### Limitations
+- **Standard Shopify**: You cannot fully customize the checkout header link without Shopify Plus
+- **Tax Display**: Shopify only shows tax after customer enters shipping address (cannot be changed)
+- **Cart Editing**: Shopify checkout doesn't allow editing cart quantities (Shopify limitation)
 
 ### Note
 The Next.js app header has been updated to use proper client-side navigation (`Link` component), so clicking the logo on your main site stays within the Next.js app.
@@ -110,11 +145,42 @@ After making Shopify configuration changes, test the following:
 
 ---
 
+## Known Shopify Checkout Limitations
+
+These are **Shopify platform limitations** that cannot be changed via code:
+
+### 1. Tax Not Displayed Until Address Entered
+- **Why:** Shopify calculates tax based on exact shipping location
+- **Cannot be changed:** This is required for legal compliance
+- **What we did:** Added "Estimated Tax" in cart with disclaimer
+
+### 2. No Cart Editing During Checkout
+- **Why:** Shopify's hosted checkout doesn't support inline cart editing
+- **Workaround Options:**
+  - Add "Return to Cart" link in checkout (requires Shopify Plus or custom domain)
+  - Users can use browser back button to return to cart
+  - Consider Shopify Plus for custom checkout
+- **What we did:** Cart now persists when users go back, so they can edit and re-checkout
+
+### 3. Checkout Header Links to Shopify Store
+- **Why:** Default Shopify checkout branding
+- **Fix:** See "Checkout Branding" section above
+- **Best solution:** Use custom domain or remove header from checkout
+
+### Alternative: Build Custom Checkout (Advanced)
+If you need full control over the checkout experience, you would need to:
+1. Upgrade to **Shopify Plus** ($2,000/month minimum)
+2. Use **Checkout Extensions** to customize the checkout
+3. OR build a completely custom checkout using Shopify's Storefront API + Payment APIs
+   - This is complex and requires handling payment processing, PCI compliance, etc.
+   - Not recommended unless you have specific business requirements
+
 ## Additional Resources
 
 - [Shopify Shipping Documentation](https://help.shopify.com/en/manual/shipping)
 - [Shopify Tax Documentation](https://help.shopify.com/en/manual/taxes)
 - [Shopify Checkout Customization](https://help.shopify.com/en/manual/checkout-settings/customize-checkout)
+- [Shopify Checkout Extensions](https://shopify.dev/docs/apps/checkout) (Requires Shopify Plus)
 
 ---
 
