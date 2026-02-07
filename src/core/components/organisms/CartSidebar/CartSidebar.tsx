@@ -7,7 +7,7 @@ import { getTenantConfig } from '@/tenants/config'
 
 export function CartSidebar() {
   const tenant = getTenantConfig('eonlife')!
-  const { items, isOpen, closeCart, updateQuantity, removeItem, subtotal, tax, shipping, total, clearCart } =
+  const { items, isOpen, closeCart, updateQuantity, removeItem, subtotal, tax, shipping, total } =
     useCartStore()
   
   const [isCheckingOut, setIsCheckingOut] = useState(false)
@@ -103,8 +103,9 @@ export function CartSidebar() {
       }
 
       if (checkoutUrl) {
-        // Clear local cart before redirecting
-        clearCart()
+        // Don't clear cart yet - preserve it so user can go back and edit if needed
+        // Cart will be cleared when order is completed (via webhook) or user can manually clear it
+        // Close the cart sidebar for better UX before redirect
         closeCart()
         // Redirect to Shopify checkout
         window.location.href = checkoutUrl
@@ -233,7 +234,7 @@ export function CartSidebar() {
 
               {/* Tax */}
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Tax (8.5%)</span>
+                <span className="text-gray-600">Estimated Tax</span>
                 <span className="font-medium text-gray-900">${tax.toFixed(2)}</span>
               </div>
 
@@ -249,6 +250,11 @@ export function CartSidebar() {
               <div className="flex justify-between text-lg font-bold pt-4 border-t">
                 <span>Total</span>
                 <span style={{ color: tenant.theme.primaryColor }}>${total.toFixed(2)}</span>
+              </div>
+
+              {/* Tax & Shipping Note */}
+              <div className="text-xs text-gray-500 text-center pt-1">
+                Final tax and shipping calculated at checkout based on your location
               </div>
 
               {/* Installment Info */}

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { getTenantConfig } from '@/tenants/config'
 import { useCartStore } from '@/core/stores/cart'
 import { CartSidebar } from '@/core/components/organisms'
@@ -102,7 +103,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Logo - Single, Larger */}
-            <a href="/" className="flex-shrink-0">
+            <Link href="/" className="flex-shrink-0">
               <Image
                 src="/assets/eonlife/logos/eon logo 1000px.png"
                 alt="EonLife"
@@ -111,7 +112,7 @@ export default function HomePage() {
                 className={`transition-all duration-300 ${scrolled ? 'h-16' : 'h-20'} w-auto`}
                 priority
               />
-            </a>
+            </Link>
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center gap-8">
