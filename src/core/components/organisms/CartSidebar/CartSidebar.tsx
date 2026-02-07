@@ -24,6 +24,9 @@ export function CartSidebar() {
     setCheckoutError(null)
 
     try {
+      // Clear any existing Shopify cart cookie to force fresh cart creation
+      document.cookie = 'shopify_cart_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+
       console.log('Starting checkout with items:', items)
 
       // Validate all items have variant IDs before proceeding
