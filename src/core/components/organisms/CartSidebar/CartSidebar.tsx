@@ -7,7 +7,7 @@ import { getTenantConfig } from '@/tenants/config'
 
 export function CartSidebar() {
   const tenant = getTenantConfig('eonlife')!
-  const { items, isOpen, closeCart, updateQuantity, removeItem, subtotal, tax, shipping, total } =
+  const { items, isOpen, closeCart, updateQuantity, removeItem, clearCart, subtotal, tax, shipping, total } =
     useCartStore()
   
   const [isCheckingOut, setIsCheckingOut] = useState(false)
@@ -142,14 +142,25 @@ export function CartSidebar() {
             <h2 className="text-2xl font-bold" style={{ color: tenant.theme.primaryColor }}>
               Shopping Cart
             </h2>
-            <button
-              onClick={closeCart}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="flex items-center gap-2">
+              {items.length > 0 && (
+                <button
+                  onClick={clearCart}
+                  className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded transition-colors"
+                  title="Clear all items from cart"
+                >
+                  Clear All
+                </button>
+              )}
+              <button
+                onClick={closeCart}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Cart Items */}
